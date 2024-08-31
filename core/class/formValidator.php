@@ -15,7 +15,7 @@ class FormValidatior {
         foreach ($formData as $name => $value)
             $tempData[$value] = $_POST[$value];
 
-        $this->data = $this->sanitizeFormData($tempData);  
+        $this->data = $this->sanitizeFormData($tempData); 
         
         return $this;
     }
@@ -76,6 +76,11 @@ class FormValidatior {
             echo "IsExist : ".$err->getMessage();
         }
     }
+    public function custom ($field, $msg) {
+        $this->errors[$field][] = "<p class='register-lastname-error text-red-400 text-1.3 pt-05'>$msg</p>";
+
+        return $this;
+    }
 
 
 
@@ -83,7 +88,13 @@ class FormValidatior {
         if (is_null($field))
             return $this->data;
         else
-            return isset($_POST[$field]) ? $this->data[$field] : "";
+            return isset($_POST[$field]) && isset($this->data[$field]) ? $this->data[$field] : "";
+    }
+    public function getErrors (string $field=null) {
+        if (is_null($field))            
+            return $this->errors;
+        else   
+            return !empty($this->errors) ? $this->errors[$field] : "";
     }
     public function clearData ($formData) {
         $tempData = [];
@@ -92,12 +103,6 @@ class FormValidatior {
             $tempData[$value] = "";
 
         $this->data = $tempData;
-    }
-    public function getErrors (string $field=null) {
-        if (is_null($field))            
-            return $this->errors;
-        else   
-            return !empty($this->errors) ? $this->errors[$field] : "";
     }
     public function hasErrors ($field=null) {
         if (is_null($field))

@@ -1,8 +1,37 @@
 <?php require_once("../include/header.php")?>
 <?php
-    if (isset($_POST["login-submit"])) {
-        echo "ll";
-    }
+     require_once("../core/load.php");
+
+    
+
+     if (isset($_POST["login-submit"])) {
+         $formData = [
+                 "email",
+                 "password"
+         ];
+         $validator->formadata($formData);
+         
+         $validator             
+             ->required("email")
+             ->email("email")
+             
+             ->required("password")
+             ->minmax("password", 8,13);
+             
+             if (!$validator->hasErrors()) {
+                $isLoggedIn = $user->login($validator->getData());
+ 
+                if ($isLoggedIn) {
+                    $_SESSION["userLoggedIn"] = $validator->getData("email");
+                    $validator->clearData($formData);
+                    header("Location: ../index.php");
+                } else
+                    $validator->custom("password", "Not exist user!");
+             }
+        //  echo $validator->hasErrors();
+        //  print_r($validator->getErrors());
+        //  print_r($validator->getData());
+     }
 ?>
 <body id="page-login" class="bg-gray-100">
     <main>
@@ -16,12 +45,12 @@
             </div>
             <form action="login.php" method="post" class="flex-column gap-2 mb-4">
                 <label for="login-email-input">
-                    <input id="login-email-input" name="email" type="text" placeholder="Email" />
-                    <p class="login-email-error text-red-400 text-1.3 pt-05">Lorem ipsum dolor sit amet.</p>
+                    <input value="<?php echo $validator->getData("email")?>" id="login-email-input" name="email" type="text" placeholder="Email" />
+                    <?php if ($validator->hasErrors("email")) echo $validator->getErrors("email")[0] ?>
                 </label>
                 <label for="login-password-input">
-                    <input id="login-password-input" name="password" type="text" placeholder="Password" />
-                    <p class="login-password-error text-red-400 text-1.3 pt-05">Lorem ipsum dolor sit amet.</p>
+                    <input value="<?php echo $validator->getData("password")?>" id="login-password-input" name="password" type="text" placeholder="Password" />
+                    <?php if ($validator->hasErrors("password")) echo $validator->getErrors("password")[0] ?>
                 </label>
                 <div class="text-center">
                     <input class="btn btn-sm btn-primary btn-overlay" name="login-submit" type="submit" value="Login">
