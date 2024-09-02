@@ -9,7 +9,7 @@ class FormValidatior {
         $this->pdo = $pdo;        
     }
 
-    public function formadata($formData) {
+    public function formdata($formData) {
         $tempData = [];
 
         foreach ($formData as $name => $value)
@@ -28,7 +28,7 @@ class FormValidatior {
         return $newFormData;
     }
     public function required (string $field) {
-        $message = "<p class='register-lastname-error text-red-400 text-1.3 pt-05'>".Constants::$MSG_REQUIRED."</p>";
+        $message = $this->displayError (Constants::$MSG_REQUIRED);
 
         if (empty($this->data[$field]))
             $this->errors[$field][] = $message;
@@ -36,7 +36,7 @@ class FormValidatior {
         return $this;
     }
     public function minmax (string $field, int $min=1, int $max=10) {
-        $message = "<p class='register-lastname-error text-red-400 text-1.3 pt-05'>Please enter a value between {$min} and {$max} characters.</p>";
+        $message = $this->displayError ("Please enter a value between {$min} and {$max} characters.</p>");
 
         if (strlen($this->data[$field]) < $min || strlen($this->data[$field]) > $max) 
             $this->errors[$field][] = $message;
@@ -44,7 +44,7 @@ class FormValidatior {
         return $this;
     }
     public function email (string $field) {
-        $message = "<p class='register-lastname-error text-red-400 text-1.3 pt-05'>".Constants::$MSG_VALID_EMAIL."</p>";
+        $message = $this->displayError (Constants::$MSG_VALID_EMAIL);
 
         if (!filter_var($this->data[$field], FILTER_VALIDATE_EMAIL))
             $this->errors[$field][] = $message;    
@@ -52,7 +52,7 @@ class FormValidatior {
         return $this;
     }
     public function confirm (string $field_1, string $field_2, string $msg) {
-        $message = "<p class='register-lastname-error text-red-400 text-1.3 pt-05'>$msg</p>";
+        $message = $this->displayError ($msg);
 
         if ($this->data[$field_1] !== $this->data[$field_2])
             $this->errors[$field_2][] = $message;
@@ -62,7 +62,7 @@ class FormValidatior {
     public function isExist (string $table, string $field, string $msg) {
         try {
             if (!empty($this->data[$field])) {
-                $message = "<p class='register-lastname-error text-red-400 text-1.3 pt-05'>$msg</p>";
+                $message = $this->displayError ($msg);
                 $sql = "select * from {$table} where {$field}=:{$field}";
                 $stmt = $this->pdo->prepare($sql);
                 $stmt->bindValue(":$field", $this->data[$field]);
@@ -77,7 +77,7 @@ class FormValidatior {
         }
     }
     public function custom ($field, $msg) {
-        $this->errors[$field][] = "<p class='register-lastname-error text-red-400 text-1.3 pt-05'>$msg</p>";
+        $this->errors[$field][] = $this->displayError ($msg);
 
         return $this;
     }
@@ -109,5 +109,8 @@ class FormValidatior {
             return !empty($this->errors);
         else
             return !empty($this->errors[$field]);
+    }
+    public function displayError ($msg) {
+        return "<p class='register-lastname-error text-red-400 text-1.3 pt-05'>".$msg."</p>";
     }
 }

@@ -21,6 +21,7 @@
     --clr-gray-800: #1F2937;
     --clr-gray-900: #111827;
     --clr-gray-950: #030712;
+    --clr-gray-950-05: rgb(3 7 18/.5);
 
     /* radius */
     --radius-sm: .3rem;
@@ -118,9 +119,9 @@
 
 /* generals */
 html {font-size: 50%;}
-body {box-sizing: border-box;font-family: var(--ff-primary);font-weight: 400;font-size: 1.7rem;letter-spacing: var(--tracking-lg);color: var(--clr-font);}
+body {box-sizing: border-box;font-family: var(--ff-primary);font-weight: 400;font-size: 1.7rem;letter-spacing: var(--tracking-lg);color: var(--clr-font);overflow-x: hidden;}
 ul {list-style-type: none;}
-img {display: block;width: 100%;object-fit: cover;object-position: center;}
+img, video {display: block;width: 100%;object-fit: cover;object-position: center;}
 a {display: inline-block;text-decoration: none;cursor: pointer;transition-property: background-color,border,color;transition-duration: .3s;}
 
 /* scrolls */
@@ -128,7 +129,7 @@ a {display: inline-block;text-decoration: none;cursor: pointer;transition-proper
 ::-webkit-progress-value {background-color: var(--clr-gray-400);border-radius: 1rem;transition: .3s ease-out;}
 
 /* icons*/
-ion-icon, i {cursor: pointer;transition-property: color, opacity;transition-duration: .3s;}
+ion-icon, i {cursor: pointer;}
 
 /* field */
 fieldset {display: grid;place-items: center;}

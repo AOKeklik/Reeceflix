@@ -1,3 +1,5 @@
-import Header from "./Header.js"
+import Nav from "./Nav.js"
+import HomePage from "./HomePage.js"
 
-new Header ()
+const nav = new Nav ()
+const homePage = new HomePage ()

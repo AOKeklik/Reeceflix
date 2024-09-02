@@ -1,15 +1,12 @@
-<?php require_once("../include/header.php")?>
+<?php require_once("./core/load.php")?>
+
 <?php
-     require_once("../core/load.php");
-
-    
-
-     if (isset($_POST["login-submit"])) {
-         $formData = [
-                 "email",
-                 "password"
+    if (isset($_POST["login-submit"])) {
+        $formData = [
+                "email",
+                "password"
          ];
-         $validator->formadata($formData);
+         $validator->formdata($formData);
          
          $validator             
              ->required("email")
@@ -24,7 +21,7 @@
                 if ($isLoggedIn) {
                     $_SESSION["userLoggedIn"] = $validator->getData("email");
                     $validator->clearData($formData);
-                    header("Location: ../index.php");
+                    header("Location: index.php");
                 } else
                     $validator->custom("password", "Not exist user!");
              }
@@ -33,11 +30,19 @@
         //  print_r($validator->getData());
      }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reeceflix | Login</title>
+    <link rel="stylesheet" href="./assets/style/style.css">
+</head>
 <body id="page-login" class="bg-gray-100">
     <main>
         <section class="w-70 mx-auto my-10 p-5 bg-white">
             <div class="w-30 mb-2">
-                <img src="../assets/img/logo.png" alt="">
+                <img src="./assets/img/logo.png" alt="">
             </div>
             <div class="mb-4">
                 <h2 class="text-3 mb-1">Login</h2>
@@ -61,17 +66,5 @@
             </p>
         </section>
     </main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<?php require_once("../include/footer.php")?>
+</body>
+</html>
