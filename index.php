@@ -3,8 +3,8 @@
 <?php
 $userLoggedIn = $_SESSION["userLoggedIn"];
 
-$data = $database->getOneRand("entity");
-$preview->displayHeroSection($data);
+$previewProvider->displayHeroSection();
+$categoryContainer->displayAllCategorySections();
 
 ?>
 

@@ -1,21 +1,23 @@
 <?php
 
 class PreviewProvider {
-    private $pdo;
+    private $db;
 
-    public function __construct($pdo) {
-        $this->pdo = $pdo;        
+    public function __construct($database) {
+        $this->db = $database;
     }
-    public function displayHeroSection ($entity=null) {
+
+    public function displayHeroSection () {
         try {
-            if (is_null($entity)) return null;
+            $entity = $this->db->getOneRand("entity");
+
             $id = $entity->get("id");
             $name = $entity->get("name");
             $preview = $entity->get("preview");
             $thumbnail = $entity->get("thumbnail");
 
             echo <<<HTML
-                <section id="hero-section" class="p-2 relative bg-gradinet-primary w-100% calc:h-100vh-12rem">
+                <section id="hero-section" class="p-2 relative bg-gradinet-primary w-100% calc:h-100vh-12rem mb-10">
                     <img id="hero-image" class="h-100% none opacity-05" src="$thumbnail" alt="" />
                     <video id="hero-video" class="h-100% opacity-05" autoplay muted >
                         <source src="$preview" type="video/mp4" />
@@ -38,5 +40,18 @@ class PreviewProvider {
         } catch (ErrorException $err) {
             echo "CreatePreviewVideo: ".$err->getMessage();
         }
+    }
+    static function displayEntitySquare ($entity) {
+        $id = $entity->id;
+        $thumbnail = $entity->thumbnail;
+        $name = $entity->name;
+        
+        return <<<HTML
+            <a href="" class="js-slider-slide">
+                <div class="h-100%">
+                    <img class="h-100%" src="$thumbnail" alt="$name">
+                </div>
+            </a>
+        HTML;
     }
 }
