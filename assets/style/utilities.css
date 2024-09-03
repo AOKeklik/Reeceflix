@@ -19,12 +19,13 @@
 }
 /* display */
 .none {display: none;}
+.flex {display: flex;flex-direction: row;} 
 .flex-column {display: flex;flex-direction: column;} 
-@media (min-width: 768px) {
-    .md\:flex {display: flex;flex-direction: row;}
+@media (min-width: 640px) {
+    .sm\:flex {display: flex;flex-direction: row;}
 }
 /* flex */
-.flex {display: flex;} 
+.justify-center {justify-content: center;}
 .align-center {align-items: center;}
 /* grid */
 /* width */

@@ -47,7 +47,7 @@ class PreviewProvider {
         $name = $entity->name;
         
         return <<<HTML
-            <a href="" class="js-slider-slide">
+            <a href="category.php?id=$id" class="js-slider-slide">
                 <div class="h-100%">
                     <img class="h-100%" src="$thumbnail" alt="$name">
                 </div>

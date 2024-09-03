@@ -33,8 +33,8 @@ class CategoryConteiner {
         else
             echo "";
 
-        // if (sizeof($enitities) == 0)
-        //     return;
+        if (sizeof($enitities) == 0)
+            return;
 
         $entityHTML = "";
 
@@ -42,10 +42,10 @@ class CategoryConteiner {
             $entityHTML .= PreviewProvider::displayEntitySquare($entity);
 
        return <<<HTML
-            <div class="js-slider flex-column md:flex gap-2" role="product">
-                <div class="w-30">
-                    <h3 class="text-3 mb-2">$title</h3>
-                    <div class="js-slider-control">
+            <div class="js-slider flex-column sm:flex gap-2" role="product">
+                <div class="w-30 bg-gray-100 flex-column justify-center">
+                    <h3 class="text-3 mb-2 text-center">$title</h3>
+                    <div class="js-slider-control bold">
                         <i class="bi bi-chevron-left text-3"></i>
                         <i class="bi bi-chevron-right text-3"></i>
                     </div>
