@@ -2,19 +2,10 @@
 
 class Database {
     private $pdo;
-    private $data;
+    public $data;
 
     public function __construct($pdo) {
         $this->pdo = $pdo;
-    }
-    /* getter */
-    public function get ($key) {
-        if (!$this->data) 
-            return "No Result!";
-        else if ($key == "all")
-            return $this->data;
-        else
-            return $this->data->$key;
     }
     /* crud */
     public function create (string $table, array $data=[]) {
@@ -52,10 +43,15 @@ class Database {
             echo "GetOneById: ".$err->getMessage();
         }
     }
-    public function getOneRand (string $table) {
+    public function getOneRand (string $table, int $catId=null) {
         try {
-            $sql = "select * from $table order by rand() limit 1";
+            $sql = "select * from $table";
+            if (!is_null($catId))
+                $sql .= " where categoryId=:catId";
+            $sql .= " order by rand() limit 1";
             $stmt = $this->pdo->prepare($sql);
+            if (!is_null($catId))
+                $stmt->bindValue(":catId", (int)$catId, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_OBJ);
 
@@ -67,7 +63,7 @@ class Database {
             echo "GetOneRand: ".$err->getMessage();
         }
     }
-    public function getManyRand (string $table, int $limit=10, int $catId=null,) {
+    public function getManyRand (string $table, int $limit=10, int $catId=null) {
         try {
             $sql = "select * from $table";
             if (!is_null($catId)) $sql .= " where categoryId=:catId";
@@ -84,24 +80,36 @@ class Database {
     }
     public function getAll (string $table, array $rest=[]) {
         try {
-            $order = $rest[0] ?? "asc";
-            $limit = $rest[1] ?? null;
-            $offset = $rest[2] ?? null;
+            $where = $rest["W"] ?? null;             /* [id,season] */
+            $orderDirection = $rest["Od"] ?? "asc";  /* asc/desc */
+            $orderBy = $rest["Ob"] ?? "id";         /* id,season */
+            $limit = $rest["L"] ?? null;            /* limit */
+            $offset = $rest["Lx"] ?? null;          /* limit end */
 
             $sql = "select * from $table";
 
-            switch(strtolower($order)) {
-                case "desc": $sql .= " order by id desc"; break;
-                default: $sql .= " order by id asc"; break;
+            if (!is_null($where)) {
+                $conditions = [];
+                foreach ($where as $name => $val) 
+                    array_push($conditions, "$name =:".$name);
+                $sql .= " where ".implode(" and ", $conditions);
             }
+
+            $sql .= " order by $orderBy $orderDirection";
             
             if (!is_null($limit)) $sql .= " limit :limit";
             if (!is_null($offset)) $sql .= " offset :offset";
+
+            // echo $sql;
 
             $stmt = $this->pdo->prepare($sql);
 
             if (!is_null($limit)) $stmt->bindValue(":limit", (int)$limit, PDO::PARAM_INT);
             if (!is_null($offset)) $stmt->bindValue(":offset", (int)$offset, PDO::PARAM_INT);
+            if (!is_null($where)) {
+                foreach ($where as $name => $val) 
+                    $stmt->bindValue(":$name", $val);
+            }
 
             $stmt->execute();
             $results = $stmt->fetchAll(PDO::FETCH_OBJ);

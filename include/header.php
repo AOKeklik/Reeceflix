@@ -2,6 +2,7 @@
 <?php
     if (!isset($_SESSION["userLoggedIn"]))
     header("Location: register.php");
+    $userLoggedIn = $_SESSION["userLoggedIn"];
 ?>
 
 <!DOCTYPE html>

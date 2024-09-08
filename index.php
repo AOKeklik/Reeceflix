@@ -3,8 +3,8 @@
 <?php
 $userLoggedIn = $_SESSION["userLoggedIn"];
 
-$previewProvider->displayHeroSection();
-$categoryContainer->displayAllCategorySections();
+$displayPreview->displayHeroSection();
+$displayCategory->displayCategoriesSection();
 
 ?>
 

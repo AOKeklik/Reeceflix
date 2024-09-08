@@ -1,6 +1,6 @@
 <?php
 
-class User {
+class DatabaseUser {
     private $pdo;
     public function __construct($pdo) {
         $this->pdo = $pdo;        

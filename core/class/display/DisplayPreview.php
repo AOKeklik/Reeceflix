@@ -1,23 +1,26 @@
 <?php
 
-class PreviewProvider {
-    private $db;
+class DisplayPreview {
+    private $pdo, $usermail;
 
-    public function __construct($database) {
-        $this->db = $database;
+    public function __construct($pdo, $usermail) {
+        $this->pdo = $pdo; 
+        $this->usermail = $pdo; 
     }
-
-    public function displayHeroSection () {
+    public function displayHeroSection (int $entityId=null) {
         try {
-            $entity = $this->db->getOneRand("entity");
-
-            $id = $entity->get("id");
-            $name = $entity->get("name");
-            $preview = $entity->get("preview");
-            $thumbnail = $entity->get("thumbnail");
+            if (is_null($entityId)) 
+                $entity = DatabaseEntity::getRandomEntity($this->pdo, $entityId, 1);
+            else 
+                $entity = new Entity ($this->pdo, $entityId);
+                
+            $id = $entity->getId();
+            $name = $entity->getName();
+            $preview = $entity->getPreview();
+            $thumbnail = $entity->getThumbnail();
 
             echo <<<HTML
-                <section id="hero-section" class="p-2 relative bg-gradinet-primary w-100% calc:h-100vh-12rem mb-10">
+                <section id="hero-section" class="relative bg-gradinet-primary w-100% calc:h-100vh-12rem mb-10">
                     <img id="hero-image" class="h-100% none opacity-05" src="$thumbnail" alt="" />
                     <video id="hero-video" class="h-100% opacity-05" autoplay muted >
                         <source src="$preview" type="video/mp4" />
@@ -40,18 +43,5 @@ class PreviewProvider {
         } catch (ErrorException $err) {
             echo "CreatePreviewVideo: ".$err->getMessage();
         }
-    }
-    static function displayEntitySquare ($entity) {
-        $id = $entity->id;
-        $thumbnail = $entity->thumbnail;
-        $name = $entity->name;
-        
-        return <<<HTML
-            <a href="category.php?id=$id" class="js-slider-slide">
-                <div class="h-100%">
-                    <img class="h-100%" src="$thumbnail" alt="$name">
-                </div>
-            </a>
-        HTML;
     }
 }
