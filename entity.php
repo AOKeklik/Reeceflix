@@ -6,9 +6,15 @@ if (!isset($_GET["id"]) || empty($_GET["id"])) {
     ErrorMessage::show("Invalid id number!");
 }
 $entityId = $_GET["id"];
-$displayPreview->displayHeroSection($entityId);
-$displaySeason->displaySeasonsSection($entityId);
-$displayCategory->displayCategorySection($entityId);
+$entity = new Entity ($pdo, $entityId);
+
+$displayPreview = new DisplayPreview ($pdo, $userLoggedIn);
+$displaySeason = new DisplaySeason ($pdo, $userLoggedIn);
+$displayCategory = new DisplayCategory ($pdo, $userLoggedIn);
+
+$displayPreview->displayHeroSection($entity);
+$displaySeason->displaySeasonsSection($entity);
+$displayCategory->displayCategorySection($entity->getCategoryId());
 
 ?>
 

@@ -1,6 +1,7 @@
 <?php 
 
 class Video {
+    private $table = "videos";
     private $pdo, $sqlData, $entity;
 
     public function __construct($pdo, $input) {
@@ -9,7 +10,7 @@ class Video {
         if (is_array($input))
             $this->sqlData = $input;
         else {
-            $sql = "select * from videos where id=:videoId";
+            $sql = "select * from $this->table where id=:videoId";
             $stmt = $this->pdo->prepare ($sql);
             $stmt->bindValue (":videoId", $input, PDO::PARAM_INT);
             $stmt->execute();
@@ -19,6 +20,7 @@ class Video {
         $this->entity = new Entity($pdo, $this->sqlData["entityId"]);
     }
 
+    /* get */
     public function getId () {
         return $this->sqlData["id"];
     }
@@ -36,5 +38,13 @@ class Video {
     }
     public function getEpisodeNumber () {
         return $this->sqlData["episode"];
+    }
+
+    /* update */
+    public function updateIncreaseViews () {
+        $sql = "update $this->table set views=views+1 where id=:id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue (":id", $this->getId(), PDO::PARAM_INT);
+        $stmt->execute();
     }
 }

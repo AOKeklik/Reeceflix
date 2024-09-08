@@ -8,9 +8,8 @@ class DisplaySeason {
         $this->usermail = $usermail;
     }
 
-    public function displaySeasonsSection ($entityId) {
-        $seasons = DatabaseVideo::getSeasons($this->pdo, $entityId);
-
+    public function displaySeasonsSection (object $entity) {
+        $seasons = $entity->getSeasons($this->pdo);
         
         $html = "<section id='season-section' class='mb-10'><div class='container'><div class='flex-column gap-3'>";
 
@@ -56,7 +55,7 @@ class DisplaySeason {
         $episode = $video->getEpisodeNumber();
 
         return <<<HTML
-            <a href="entity.php?id=$id" class="js-slider-slide">
+            <a href="watch.php?id=$id" class="js-slider-slide">
                 <div class="h-100%">
                     <img class="" src="$thumbnail" alt="$title">
                     <h3 class="py-1 text-2">$title</h3>

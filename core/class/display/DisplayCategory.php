@@ -5,7 +5,7 @@ class DisplayCategory {
 
     public function __construct($pdo, $usermail) {
         $this->pdo = $pdo; 
-        $this->usermail = $pdo; 
+        $this->usermail = $usermail; 
     }
 
     public function displayCategoriesSection () {
@@ -20,12 +20,10 @@ class DisplayCategory {
 
         echo $html .= "</div></div></section>";
     }
-    public function displayCategorySection ($entityId) {
-        $entity = new Entity ($this->pdo, $entityId);
-
+    public function displayCategorySection (int $entityId) {
         $sql = "select * from categories where id=:id";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(":id", $entity->getCategoryId(), PDO::PARAM_INT);
+        $stmt->bindValue(":id", $entityId, PDO::PARAM_INT);
         $stmt->execute();
 
         $html = "<section id='category-section'><div class='container'><div class='flex-column gap-3'>";
@@ -43,7 +41,7 @@ class DisplayCategory {
         $categoryId = $row["id"];
 
         if ($tvShow && $movies)
-            $enitities = DatabaseEntity::getRandomEntities($this->pdo, $categoryId);
+            $enitities = EntityDB::getRandomEntities($this->pdo, $categoryId);
         else if ($tvShow)
             echo "";
         else

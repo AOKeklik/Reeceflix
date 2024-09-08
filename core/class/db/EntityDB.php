@@ -1,6 +1,6 @@
 <?php
 
-class DatabaseEntity {
+class EntityDB {
     static function getEntities ($pdo, $categoryId, $limit) {
         $sql = "SELECT * FROM entities ";
 
@@ -26,12 +26,12 @@ class DatabaseEntity {
         return $result;
     }
     static function getRandomEntity ($pdo) {
-        $entity = DatabaseEntity::getEntities($pdo, null, 1);
+        $entity = EntityDB::getEntities($pdo, null, 1);
         
         return $entity[0];
     }
     static function getRandomEntities ($pdo, $carId) {
-        $entities = DatabaseEntity::getEntities($pdo, $carId, 30);
+        $entities = EntityDB::getEntities($pdo, $carId, 30);
         
         return $entities;
     }

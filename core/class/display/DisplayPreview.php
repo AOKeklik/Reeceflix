@@ -7,12 +7,10 @@ class DisplayPreview {
         $this->pdo = $pdo; 
         $this->usermail = $pdo; 
     }
-    public function displayHeroSection (int $entityId=null) {
+    public function displayHeroSection (object $entity=null) {
         try {
-            if (is_null($entityId)) 
-                $entity = DatabaseEntity::getRandomEntity($this->pdo, $entityId, 1);
-            else 
-                $entity = new Entity ($this->pdo, $entityId);
+            if (is_null($entity)) 
+                $entity = EntityDB::getRandomEntity($this->pdo);
                 
             $id = $entity->getId();
             $name = $entity->getName();
