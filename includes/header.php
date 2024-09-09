@@ -12,7 +12,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php SiteConfig::getSiteTitle();?></title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style/style.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL?>assets/style/style.css">
 </head>
 <body>
-    <?php require_once("./include/nav.php")?>
+    <script>
+        const ROOT_DIR = "<?php echo BASE_URL?>"
+        const USER_MAIL = "<?php echo $userLoggedIn?>"
+    </script>
+
+    <?php require_once("./includes/nav.php")?>

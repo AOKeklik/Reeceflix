@@ -49,13 +49,13 @@ class DisplaySeason {
     }
     public function getVideoSquareHtml ($video) {
         $id = $video->getId();
-        $thumbnail = $video->getThumbnail();
+        $thumbnail = BASE_URL.$video->getThumbnail();
         $title = $video->getTitle();
         $desc = Utilities::limitString($video->getDesc(), 60);
         $episode = $video->getEpisodeNumber();
 
         return <<<HTML
-            <a href="watch.php?id=$id" class="js-slider-slide">
+            <a href="/Reeceflix/watch/$id" class="js-slider-slide">
                 <div class="h-100%">
                     <img class="" src="$thumbnail" alt="$title">
                     <h3 class="py-1 text-2">$title</h3>

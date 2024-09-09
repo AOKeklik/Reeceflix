@@ -1,0 +1,20 @@
+RewriteEngine On
+
+# URL (/) veya /home -> index.php
+RewriteRule ^$ index.php [L,QSA]
+RewriteRule ^home$ index.php [L,QSA]
+
+# pages
+RewriteRule ^(tv-shows|movies|recently-added)$ page.php?page=$1 [L,QSA]
+
+# entity.php?id=81 -> entity/81 (id'yi geç)
+RewriteRule ^entity/([0-9]+)$ ent.php?id=$1 [L,QSA]
+
+# watch.php?id=81 -> watch/81 (id'yi geç)
+RewriteRule ^watch/([0-9]+)$ wat.php?id=$1 [L,QSA]
+
+# Tüm diğer istekler için 404 hata sayfası
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule ^(.*)$ 404.php [L]

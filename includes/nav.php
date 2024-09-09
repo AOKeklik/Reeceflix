@@ -7,14 +7,14 @@
         </div>
         <div id="nav-bottom">
             <nav>
-                <a href="index.php" id="nav-bottom-logo">
-                    <img src="./assets/img/logo.png" alt="" />
+                <a href="/Reeceflix/home" id="nav-bottom-logo">
+                    <img src="<?php echo BASE_URL?>assets/img/logo.png" alt="" />
                 </a>
                 <ul id="nav-bottom-menu">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="">TV Shows</a></li>
-                    <li><a href="">Movies</a></li>
-                    <li><a href="">Recantly Added</a></li>
+                    <li><a href="/Reeceflix/home">Home</a></li>
+                    <li><a href="/Reeceflix/tv-shows">TV Shows</a></li>
+                    <li><a href="/Reeceflix/movies">Movies</a></li>
+                    <li><a href="/Reeceflix/recently-added">Recantly Added</a></li>
                 </ul>
                 <i id="nav-bottom-open" class="ri-menu-line"></i>
 				<i id="nav-bottom-close" class="ri-close-large-line"></i>

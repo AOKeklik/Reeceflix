@@ -93,7 +93,7 @@ class NavDisplay extends NavHandler {
         })
         for (const item of this._navBottomMenu.children) {
             const link = item.children[0]
-            link.addEventListener("click", (e) => e.preventDefault())
+            // link.addEventListener("click", (e) => e.preventDefault())
         }
     }
 }

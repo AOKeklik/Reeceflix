@@ -75,11 +75,11 @@ class DisplayCategory {
     }
     public function getEntitySquareHtml ($entity) {
         $id = $entity->getId();
-        $thumbnail = $entity->getThumbnail();
+        $thumbnail = BASE_URL.$entity->getThumbnail();
         $name = $entity->getName();
         
         return <<<HTML
-            <a href="entity.php?id=$id" class="js-slider-slide">
+            <a href="/Reeceflix/entity/$id" class="js-slider-slide">
                 <div class="h-100%">
                     <img class="h-100%" src="$thumbnail" alt="$name">
                 </div>

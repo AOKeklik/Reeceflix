@@ -1,4 +1,4 @@
-<?php require_once("./include/header.php")?>
+<?php require_once("./includes/header.php")?>
 
 <?php
 
@@ -10,4 +10,4 @@ $displayCategory->displayCategoriesSection();
 
 ?>
 
-<?php require_once("./include/footer.php")?>
+<?php require_once("./includes/footer.php")?>

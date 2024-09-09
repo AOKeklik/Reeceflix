@@ -7,7 +7,7 @@ date_default_timezone_set("Europe/Warsaw");
 $host = "localhost";
 $dbname = "reeceflix";
 $username = "root";
-$password = "12345678";
+$password = "";
 
 try {
     $dns = "mysql:host={$host};dbname={$dbname};charset=utf8";
