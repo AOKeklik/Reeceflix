@@ -7,6 +7,7 @@ include "class/db/User.php";
 include "class/db/Entity.php";
 include "class/db/EntityDB.php";
 include "class/db/Video.php";
+include "class/db/VideoDB.php";
 include "class/db/Season.php";
 
 include "class/ErrorMessage.php";
@@ -21,6 +22,7 @@ global $pdo;
 
 $siteconfig = new SiteConfig($pdo);
 $validator = new FormValidatior($pdo);
+$user = new User($pdo);
 
 
 

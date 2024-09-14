@@ -1,17 +1,22 @@
 RewriteEngine On
 
-# URL (/) veya /home -> index.php
-RewriteRule ^$ index.php [L,QSA]
-RewriteRule ^home$ index.php [L,QSA]
+# /
+RewriteRule ^$ index.php?page=home [L,QSA]
 
 # pages
-RewriteRule ^(tv-shows|movies|recently-added)$ page.php?page=$1 [L,QSA]
+RewriteRule ^(home|tv-shows|movies|recently-added)$ index.php?page=$1 [L,QSA]
 
-# entity.php?id=81 -> entity/81 (id'yi geç)
-RewriteRule ^entity/([0-9]+)$ ent.php?id=$1 [L,QSA]
+# /search
+RewriteRule ^search$ search.php [L,QSA]
 
-# watch.php?id=81 -> watch/81 (id'yi geç)
-RewriteRule ^watch/([0-9]+)$ wat.php?id=$1 [L,QSA]
+# category/1
+RewriteRule ^category/([0-9]+)$ index.php?page=category&id=$1 [L,QSA]
+
+# entity/81
+RewriteRule ^entity/([0-9]+)$ index.php?page=entity&id=$1 [L,QSA]
+
+# watch/81
+RewriteRule ^watch/([0-9]+)$ index.php?page=watch&id=$1 [L,QSA]
 
 # Tüm diğer istekler için 404 hata sayfası
 RewriteCond %{REQUEST_FILENAME} !-f

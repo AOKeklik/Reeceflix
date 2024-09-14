@@ -73,7 +73,9 @@ class NavDisplay extends NavHandler {
         if (!this._navTop) return
         const icons = this._navTop.querySelectorAll("i")
         icons.forEach (icon => {
-            const iconWrapper = document.createElement("div")
+            const href = icon.getAttribute("data-href") ?? "/Reeceflix/"
+            const iconWrapper = document.createElement("a")
+            iconWrapper.href = href
             iconWrapper.className = "nav-top-icon"
             iconWrapper.appendChild(icon)
             this._navTop.appendChild(iconWrapper)

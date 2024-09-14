@@ -3,7 +3,7 @@
         <div id="nav-top">
             <i class="ri-mail-fill"></i>
 			<i class="ri-phone-fill"></i>
-			<i class="ri-search-fill"></i>
+			<i data-href="/Reeceflix/search" class="ri-search-fill"></i>
         </div>
         <div id="nav-bottom">
             <nav>

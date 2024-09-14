@@ -1,4 +1,5 @@
 <?php require_once("./includes/header.php")?>
+
 <?php
 $displayPreview = new DisplayPreview ($pdo, $userLoggedIn);
 

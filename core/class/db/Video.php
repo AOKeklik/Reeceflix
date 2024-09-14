@@ -21,8 +21,32 @@ class Video {
     }
 
     /* get */
+    public function isMovie () {
+        return $this->sqlData["isMovie"] == 1;
+    }
+    public function isInProgress ($username) {
+        $sql = "select * from videoProgress where videoId=:videoId and username=:username";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue (":videoId", $this->getId());
+        $stmt->bindValue (":username", $username);
+        $stmt->execute ();
+
+        return $stmt->rowCount() != 0;
+    }
+    public function hasSeen ($username) {
+        $sql = "select * from videoProgress where videoId=:videoId and username=:username and finished=1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue (":videoId", $this->getId());
+        $stmt->bindValue (":username", $username);
+        $stmt->execute ();
+
+        return $stmt->rowCount() != 0;
+    }
     public function getId () {
         return $this->sqlData["id"];
+    }
+    public function getEntityId () {
+        return $this->sqlData["entityId"];
     }
     public function getTitle () {
         return $this->sqlData["title"];
@@ -38,6 +62,14 @@ class Video {
     }
     public function getEpisodeNumber () {
         return $this->sqlData["episode"];
+    }
+    public function getSeasonNumber () {
+        return $this->sqlData["season"];
+    }
+    public function getSesAndEps () {
+        $ses = $this->getSeasonNumber ();
+        $eps = $this->getEpisodeNumber ();
+        return "Season ".$ses.", Episode ".$eps;
     }
 
     /* update */

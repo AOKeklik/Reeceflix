@@ -35,8 +35,8 @@ class DisplaySeason {
                 <div class="w-30 bg-gray-100 flex justify-center align-center gap-1 p-1">
                     <h3 class="text-3 text-center">$num Season</h3>
                     <div class="js-slider-control bold">
-                        <i class="bi bi-chevron-left text-3"></i>
-                        <i class="bi bi-chevron-right text-3"></i>
+                        <i class="js-slider-control-right bi bi-chevron-left text-3"></i>
+                        <i class="js-slider-control-left bi bi-chevron-right text-3"></i>
                     </div>
                 </div>
                 <div class="js-slider-wrapper">
@@ -52,11 +52,12 @@ class DisplaySeason {
         $thumbnail = BASE_URL.$video->getThumbnail();
         $title = $video->getTitle();
         $desc = Utilities::limitString($video->getDesc(), 60);
-        $episode = $video->getEpisodeNumber();
+        $hasSeen = $video->hasSeen($this->usermail) ? '<i class="bi bi-check-square-fill text-white text-5 absolute xy-0 p-1"></i>' : "";
 
         return <<<HTML
             <a href="/Reeceflix/watch/$id" class="js-slider-slide">
-                <div class="h-100%">
+                <div class="relative">
+                    $hasSeen
                     <img class="" src="$thumbnail" alt="$title">
                     <h3 class="py-1 text-2">$title</h3>
                     <p>$desc</p>

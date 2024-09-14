@@ -20,16 +20,40 @@ class DisplayCategory {
 
         echo $html .= "</div></div></section>";
     }
-    public function displayCategorySection (int $entityId) {
-        $sql = "select * from categories where id=:id";
+    public function displayTvShowsCategoriesSection () {
+        $sql = "select * from categories";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(":id", $entityId, PDO::PARAM_INT);
         $stmt->execute();
 
         $html = "<section id='category-section'><div class='container'><div class='flex-column gap-3'>";
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
-            $html .= $this->getCategoryHtml ($row, ["You might also like", true, true]);
+            $html .= $this->getCategoryHtml ($row, [null, true, false]);
+
+        echo $html .= "</div></div></section>";
+    }
+    public function displayMoviesCategoriesSection () {
+        $sql = "select * from categories";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+
+        $html = "<section id='category-section'><div class='container'><div class='flex-column gap-3'>";
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+            $html .= $this->getCategoryHtml ($row, [null, false, true]);
+
+        echo $html .= "</div></div></section>";
+    }
+    public function displayCategorySection (int $categoryId, $title = null) {
+        $sql = "select * from categories where id=:id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(":id", $categoryId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $html = "<section id='category-section'><div class='container'><div class='flex-column gap-3'>";
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+            $html .= $this->getCategoryHtml ($row, [$title, true, true]);
 
         echo $html .= "</div></div></section>";
     }
@@ -41,11 +65,11 @@ class DisplayCategory {
         $categoryId = $row["id"];
 
         if ($tvShow && $movies)
-            $enitities = EntityDB::getRandomEntities($this->pdo, $categoryId);
+            $enitities = EntityDB::getEntities($this->pdo, $categoryId, 30);
         else if ($tvShow)
-            echo "";
+            $enitities = EntityDB::getTvShowEntities($this->pdo, $categoryId, 30);
         else
-            echo "";
+            $enitities = EntityDB::getMovieEntities($this->pdo, $categoryId, 30);
 
         if (sizeof($enitities) == 0)
             return;
@@ -58,10 +82,12 @@ class DisplayCategory {
        return <<<HTML
             <div class="js-slider flex-column sm:flex gap-2" role="product">
                 <div class="w-30 bg-gray-100 flex-column justify-center">
-                    <h3 class="text-3 mb-2 text-center">$title</h3>
+                    <a href="category/$categoryId">
+                        <h3 class="text-3 mb-2 text-center">$title</h3>
+                    </a>
                     <div class="js-slider-control bold">
-                        <i class="bi bi-chevron-left text-3"></i>
-                        <i class="bi bi-chevron-right text-3"></i>
+                        <i class="js-slider-control-right bi bi-chevron-left text-3"></i>
+                        <i class="js-slider-control-left bi bi-chevron-right text-3"></i>
                     </div>
                 </div>
                 <div class="js-slider-wrapper">
@@ -80,9 +106,7 @@ class DisplayCategory {
         
         return <<<HTML
             <a href="/Reeceflix/entity/$id" class="js-slider-slide">
-                <div class="h-100%">
-                    <img class="h-100%" src="$thumbnail" alt="$name">
-                </div>
+                <img src="$thumbnail" alt="$name">
             </a>
         HTML;
     }

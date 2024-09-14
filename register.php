@@ -22,12 +22,12 @@
 
             ->required("userName")
             ->minmax("userName", 5,13)
-            ->isExist("user", "userName", "Exist user!")
+            ->isExist("users", "userName", "Exist user!")
             
             ->required("email")
             ->required("confirmemail")
             ->email("email")
-            ->isExist("user", "email", "Exist user!")
+            ->isExist("users", "email", "Exist user!")
             ->confirm("email", "confirmemail", "Emails do not match!")
             
             ->required("password")
@@ -38,16 +38,12 @@
             
             
             if (!$validator->hasErrors()) {
-                $userId = $database->create(
-                    "user", 
-                    $user->getFormatedRegisterFromData($validator->getData())
-                );
+                $userId = $user->createUser($validator->getData());
 
                 if ($userId) {
                     $_SESSION["userLoggedIn"] = $validator->getData("firstName");
-                    // header("Location: ../index.php");
-
                     $validator->clearData($formData);
+                    header("Location: ./index.php");
                 }
             }
         // echo $validator->hasErrors();
