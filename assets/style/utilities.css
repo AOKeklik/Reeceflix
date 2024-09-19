@@ -29,16 +29,18 @@
     .sm\:flex {display: flex;flex-direction: row;}
 }
 /* flex */
+.flex-wrap {flex-wrap: wrap;}
 .justify-center {justify-content: center;}
 .align-center {align-items: center;}
 /* grid */
 /* width */
 .w-70 {width: 100%;max-width: 70rem;}
 .w-30 {width: 100%;max-width: 30rem;}
+.w-40 {width: 100%;max-width: 40rem;}
 .w-100\% {width: 100%;}
 /* height */
 .h-100\% {height: 100%;}
-.h-100vh {height: 100vh;}
+.minh-100vh {min-height: 100vh;}
 .calc\:h-100vh-12rem {height: calc(100vh - 12rem);}
 /* padding */
 .pt-05 {padding-top: .5rem;}
@@ -52,6 +54,7 @@
 .px-4 {padding-right: 4rem;padding-left: 4rem;}
 .p-5 {padding: 5rem;}
 .mb-10 {margin-bottom: 10rem;}
+.py-10 {padding-top: 10rem;padding-bottom: 10rem;}
 /* margin */
 .mx-auto {margin: 0 auto;}
 .my-1 {margin-right: 1rem;margin-left: 1rem;}
@@ -252,6 +255,18 @@
 .goback {display: flex;gap: 2rem;padding: 1rem 2rem;background-color: var(--clr-indigo-200);}
 .goback-item a {display: flex;gap: 1rem;align-items: center;color: var(--clr-indigo-700);}
 .goback-item i {font-size: 2rem;}
+/* === forms === */
+.form {display: flex;flex-direction: column;align-items: center;gap: 2rem;padding: 5rem;background-color: white;}    
+.form-label {position: relative;}
+.form-label input {width: 100%;border: 2px solid var(--clr-red-200);padding: 1.5rem !important;transition: border .3s;outline: none;border-radius: .3rem;}
+.form-label[role="search"] input {padding-right: 3rem;}
+.form-label input:focus {border-color: var(--clr-red-500);}
+.form ::placeholder {color:var(--clr-red-300)}
+.form-label span, .form-label i {position: absolute;top: 50%;transform: translateY(-50%);}
+.form-label i {right: 1rem;cursor: pointer;}
+.form-label span {left: 1rem;padding: .5rem;transform-origin: left;background-color: var(--clr-gray-700);transition: .3s;}
+.form-btn {height: min-content;padding: .8rem 1rem;background: none;background-color: var(--clr-red-50);border: 1px solid var(--clr-red-400);cursor: pointer;transition-duration: .3s;transition-property: background-color;border-radius: .3rem;outline: none;box-shadow: none;}
+.form-btn:hover {background-color: var(--clr-red-400);color: var(--clr-red-50);}
 /* === media === */
 @media (min-width: 640px) {
 }

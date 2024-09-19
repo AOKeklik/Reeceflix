@@ -5,10 +5,11 @@ include "class/Constants.php";
 
 include "class/db/User.php";
 include "class/db/Entity.php";
-include "class/db/EntityDB.php";
 include "class/db/Video.php";
-include "class/db/VideoDB.php";
 include "class/db/Season.php";
+include "class/db/EntityDB.php";
+include "class/db/VideoDB.php";
+include "class/db/SearchDB.php";
 
 include "class/ErrorMessage.php";
 include "class/FormValidator.php";

@@ -21,7 +21,7 @@
                 if ($isLoggedIn) {
                     $_SESSION["userLoggedIn"] = $validator->getData("email");
                     $validator->clearData($formData);
-                    header("Location: ./index.php");
+                    header("Location: index.php?page=home");
                 } else
                     $validator->custom("password", "Not exist user!");
              }

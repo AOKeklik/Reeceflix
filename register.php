@@ -43,7 +43,7 @@
                 if ($userId) {
                     $_SESSION["userLoggedIn"] = $validator->getData("firstName");
                     $validator->clearData($formData);
-                    header("Location: ./index.php");
+                    header("Location: ./index.php?page=home");
                 }
             }
         // echo $validator->hasErrors();

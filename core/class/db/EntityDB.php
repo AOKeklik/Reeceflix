@@ -73,6 +73,19 @@ class EntityDB {
 
         return $result;
     }
+    static function getSearchEntities ($pdo, $term) {
+        $sql = "select * from entities where name like concat('%', :term, '%') limit 30";
+        $query = $pdo->prepare($sql);
+        $query->bindParam(":term", $term);
+        $query->execute();
+
+        $result = array();
+        while($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $result[] = new Entity($pdo, $row);
+        }
+
+        return $result;
+    }
     static function getRandomEntity ($pdo) {
         $entity = EntityDB::getEntities($pdo, null, 1);
         
