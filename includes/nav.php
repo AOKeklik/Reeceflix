@@ -4,6 +4,8 @@
             <i class="ri-mail-fill"></i>
 			<i class="ri-phone-fill"></i>
 			<i data-href="/Reeceflix/search" class="ri-search-fill"></i>
+            <i data-href="/Reeceflix/profile" class="ri-user-fill"></i>
+            <i data-href="/Reeceflix/logout" class="ri-login-box-fill"></i>
         </div>
         <div id="nav-bottom">
             <nav>
