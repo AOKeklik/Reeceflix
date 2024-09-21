@@ -36,7 +36,7 @@ class FormValidatior {
         return $this;
     }
     public function minmax (string $field, int $min=1, int $max=10) {
-        $message = $this->displayError ("Please enter a value between {$min} and {$max} characters.</p>");
+        $message = $this->displayError ("<p>Please enter a value between {$min} and {$max} characters.</p>");
 
         if (strlen($this->data[$field]) < $min || strlen($this->data[$field]) > $max) 
             $this->errors[$field][] = $message;

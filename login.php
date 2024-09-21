@@ -16,7 +16,7 @@
              ->minmax("password", 8,13);
              
              if (!$validator->hasErrors()) {
-                $isLoggedIn = $user->login($validator->getData());
+                $isLoggedIn = UserDB::login($pdo, $validator->getData());
  
                 if ($isLoggedIn) {
                     $_SESSION["userLoggedIn"] = $validator->getData("email");
@@ -48,7 +48,7 @@
                 <h2 class="text-3 mb-1">Login</h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, doloribus?</p>
             </div>
-            <form action="login.php" method="post" class="flex-column gap-2 mb-4">
+            <form action="login" method="post" class="flex-column gap-2 mb-4">
                 <label for="login-email-input">
                     <input value="<?php echo $validator->getData("email")?>" id="login-email-input" name="email" type="text" placeholder="Email" />
                     <?php if ($validator->hasErrors("email")) echo $validator->getErrors("email")[0] ?>

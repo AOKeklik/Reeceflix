@@ -1,5 +1,13 @@
 RewriteEngine On
 
+# Usunięcie rozszerzenia .php, ale tylko jeśli plik istnieje
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.php [NC]
+RewriteRule ^ %1 [R,L]
+
+# Pozwól, aby URL bez rozszerzenia .php został przetworzony prawidłowo
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
 # /
 RewriteRule ^$ index.php?page=home [L,QSA]
 
@@ -17,6 +25,7 @@ RewriteRule ^entity/([0-9]+)$ index.php?page=entity&id=$1 [L,QSA]
 
 # watch/81
 RewriteRule ^watch/([0-9]+)$ index.php?page=watch&id=$1 [L,QSA]
+
 
 # Tüm diğer istekler için 404 hata sayfası
 RewriteCond %{REQUEST_FILENAME} !-f

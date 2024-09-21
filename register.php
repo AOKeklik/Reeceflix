@@ -38,7 +38,7 @@
             
             
             if (!$validator->hasErrors()) {
-                $userId = $user->createUser($validator->getData());
+                $userId =  UserDB::createUser($pdo, $validator->getData());
 
                 if ($userId) {
                     $_SESSION["userLoggedIn"] = $validator->getData("firstName");
@@ -69,7 +69,7 @@
                 <h2 class="text-3 mb-1">Sign Up</h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, doloribus?</p>
             </div>
-            <form action="register.php" method="post" class="flex-column gap-2 mb-4">
+            <form action="register" method="post" class="flex-column gap-2 mb-4">
                 <label for="register-firstname-input">
                     <input value="<?php echo $validator->getData("firstName")?>" name="firstName"  id="register-firstname-input" type="text" placeholder="First Name" />
                     <?php if ($validator->hasErrors("firstName")) echo $validator->getErrors("firstName")[0] ?>

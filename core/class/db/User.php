@@ -1,51 +1,38 @@
 <?php
 
 class User {
-    private $pdo;
-    public function __construct($pdo) {
+    private $pdo,$sqlData;
+    public function __construct($pdo, $input) {
         $this->pdo = $pdo;        
-    }
-    public function getFormatedRegisterFromData (array $formData) {
-        return [
-            "firstName" => $formData["firstName"],
-            "lastName" => $formData["lastName"],
-            "userName" => $formData["userName"],
-            "email" => $formData["email"],
-            "password" => hash("sha512", $formData["password"])
-        ];
-    }
-    public function login (array $formData) {
-        try {
-            $password = hash("sha512", $formData["password"]);
-            $mail = $formData["email"];
-
-            $sql = "select * from users where password=:pass and email=:mail";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(":pass", $password);
-            $stmt->bindValue(":mail", $mail);
-            $stmt->execute();
-            
-            if ($stmt->rowCount() > 0) 
-                return true;
-            else 
-                return false;
-        } catch (PDOException $err) {
-            echo "Login: ".$err->getMessage();
+        
+        if (is_array($input)) {
+            $this->sqlData = $input;
+        } else {
+            try {
+                $sql = "select * from users where email=:email";
+                $stmt = $this->pdo->prepare ($sql);
+                $stmt->bindValue (":email", $input);
+                $stmt->execute ();
+                $this->sqlData = $stmt->fetch (PDO::FETCH_ASSOC);
+            } catch(PDOException $err) {
+                echo "User: ".$err->getMessage ();
+            }
         }
     }
-    public function createUser ($formData) {
-        $formData = $this->getFormatedRegisterFromData($formData);
-
-        $sql = "insert into users ";
-        $sql.= "(".implode(", ", array_keys($formData)).")";
-        $sql.= "values";
-        $sql.= "(:".implode(", :", array_keys($formData)).")";
-
-        if ($stmt = $this->pdo->prepare($sql))
-            foreach ($formData as $key=>$val)
-                $stmt->bindValue (":".$key, $val);
-
-        $stmt->execute ();
-        return $this->pdo->lastInsertId();
+    public function firstName () {
+        return $this->sqlData["firstName"];
     }
+    public function lastName () {
+        return $this->sqlData["lastName"];
+    }
+    public function fullName () {
+        return $this->sqlData["firstName"]." ".$this->sqlData["lastName"];
+    }
+    public function userName () {
+        return $this->sqlData["userName"];
+    }
+    public function email () {
+        return $this->sqlData["email"];
+    }
+    
 }
