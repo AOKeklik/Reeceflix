@@ -31,4 +31,32 @@
 - **HTML5 & CSS3**: For the frontend layout, structure, and styling, ensuring a responsive and modern design.
 - **AJAX**: Ensures dynamic and asynchronous operations for a smooth user experience without constant page reloads.
 
-## 📂 Project Structure
+## 🔧 Installation & Setup
+
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/AOKeklik/reeceflix.git
+    ```
+
+2. **Database Setup**:
+   - Import the SQL file (`reeceflix.sql`) in the `database/` folder into your MySQL database.
+   - Update the database connection details in `includes/config.php`.
+
+3. **Run the Application**:
+   - Ensure your local server (e.g., XAMPP, WAMP, MAMP) is running.
+   - Access the application via `http://localhost/reeceflix`.
+
+## 🌐 Live Demo
+Coming Soon!
+
+## ✨ Future Improvements
+- **Admin Panel**: Add a dedicated admin panel for managing video content and users.
+- **Subscription Model**: Integrate payment gateways for premium subscriptions.
+- **Multi-language Support**: Implement support for multiple languages to reach a broader audience.
+- **Recommendation System**: Add an AI-powered recommendation engine to suggest content based on user preferences and viewing history.
+
+## 🛠️ Contributions
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/AOKeklik/reeceflix/issues).
+
+## 📄 License
+This project is licensed under the MIT License.
